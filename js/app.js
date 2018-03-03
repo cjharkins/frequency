@@ -13,7 +13,7 @@ let $reverse = $('#reverse');
 let $forward = $('#forward');
 let stationIndex = 9;
 let stationLength = 0;
-
+$play.hide();
 $.get(PROXY_URL+API_URL, function(data){
 	
 	String.prototype.capitalizeDesc = function(){
@@ -31,8 +31,11 @@ $.get(PROXY_URL+API_URL, function(data){
 
 			let description = data[stationIndex].categories[0].description;
 			let stationLength = data.length;
-			if (stationIndex > stationLength) {
+			if (stationIndex >= 20) {
 				stationIndex = 0;
+			}
+			if (stationIndex < 0) {
+				stationIndex = 19;
 			}
 
 			$albumArt.css('background-image',`url(${data[stationIndex].image.url})`)
@@ -62,6 +65,16 @@ $.get(PROXY_URL+API_URL, function(data){
   		streamUpdate = streamUpdate.hasBreak();
   		playStation.src = streamUpdate;
   		playStation.play();	
+  });
+  $pause.click(function(){
+  		playStation.pause();	
+  		$pause.hide();
+  		$play.show();
+  });
+  $play.click(function(){
+  		playStation.play();
+  		$play.hide();
+  		$pause.show();
   });
 
 });
