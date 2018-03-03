@@ -13,7 +13,10 @@ let $reverse = $('#reverse');
 let $forward = $('#forward');
 let stationIndex = 9;
 let stationLength = 0;
+let canvas, ctx, source, context, analyser,fbc_array,bars,bar_x, bar__width, bar_height;
+
 $play.hide();
+
 $.get(PROXY_URL+API_URL, function(data){
 	
 	String.prototype.capitalizeDesc = function(){
@@ -24,8 +27,10 @@ $.get(PROXY_URL+API_URL, function(data){
 		return this.replace(/\r?\n|\r/gm,"");
 	}
 	let stream = data[stationIndex].streams[0].stream;
-	let playStation = new Audio(stream.hasBreak());
-	playStation.play();
+	let audio = new Audio();
+	audio.src = stream.hasBreak();
+
+	audio.play();
 
 	function updateStation(i){
 
@@ -47,32 +52,32 @@ $.get(PROXY_URL+API_URL, function(data){
 	updateStation(stationIndex);
 
 	$forward.click(function(){
-  		playStation.src = '';
+  		audio.src = '';
   		stationIndex++;
   		updateStation(stationIndex)
   		console.log(stationIndex);
   		let streamUpdate = data[stationIndex].streams[0].stream;
   		streamUpdate = streamUpdate.hasBreak();
-  		playStation.src = streamUpdate;
-  		playStation.play();	
+  		audio.src = streamUpdate;
+  		audio.play();	
   });
   $reverse.click(function(){
-  		playStation.src = '';
+  		audio.src = '';
   		stationIndex--;
   		updateStation(stationIndex)
   		console.log(stationIndex);
   		let streamUpdate = data[stationIndex].streams[0].stream;
   		streamUpdate = streamUpdate.hasBreak();
-  		playStation.src = streamUpdate;
-  		playStation.play();	
+  		audio.src = streamUpdate;
+  		audio.play();	
   });
   $pause.click(function(){
-  		playStation.pause();	
+  		audio.pause();	
   		$pause.hide();
   		$play.show();
   });
   $play.click(function(){
-  		playStation.play();
+  		audio.play();
   		$play.hide();
   		$pause.show();
   });

@@ -39,7 +39,7 @@ body {
 .album-art {
   padding: 30px;
   width: 100%;
-  height: calc(100vh/2);
+  height: calc(100vh/2.5);
   background-image: url("http://www.industrytap.com/wp-content/uploads/2016/06/hub.jpg");
   background-size: cover;
   border: 3px solid white;
@@ -60,9 +60,14 @@ h4 {
   font-family: 'Lato';
 }
 .song-info {
-  margin-bottom: calc(100vh/2.5);
+  margin-bottom: calc(100vh/3.75);
 }
 p {
   font-size:.8em;
 }
-
+#pause,
+#play,
+#forward,
+#reverse {
+  cursor:pointer;
+}
